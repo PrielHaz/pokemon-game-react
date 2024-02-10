@@ -1,0 +1,33 @@
+.user-stats-container {
+  text-align: center;
+}
+
+.circle-progress-container {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin: 20px auto;
+}
+
+.circle-progress {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #e6e6e6; /* Light gray background */
+  background-image: conic-gradient(
+    #4caf50 0% var(--fill-percentage),
+    /* Dynamic green portion */ #e6e6e6 var(--fill-percentage) 100%
+      /* Gray portion */
+  );
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: rgb(39, 13, 13);
+}
+
+.circle-progress span {
+  position: absolute;
+}

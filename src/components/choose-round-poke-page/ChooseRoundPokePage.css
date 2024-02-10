@@ -1,0 +1,20 @@
+.choose-round-poke-page-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 0px;
+}
+
+.choose-round-poke-page-container h2 {
+  font-size: 1.1em;
+  color: #b1346a;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* hover */
+.choose-round-poke-page-container h2:hover {
+  color: #684242;
+  cursor: default;
+}

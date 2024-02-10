@@ -1,0 +1,43 @@
+.poke-card {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 10px;
+  text-align: center;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s;
+  margin: 10px;
+}
+
+.poke-card:hover {
+  transform: scale(1.05);
+  font-weight: bold;
+  font-size: 1.1em;
+  /* margin-left: 20px;
+  margin-right: 20px; */
+}
+
+.poke-card.shadow {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+  border: 2px solid #000; /* Adds a solid border */
+  transform: translateY(-2px); /* Slightly lifts the card */
+}
+
+.poke-card.shadow:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  transform: scale(1) translateY(-2px);
+}
+.poke-card img {
+  width: 100px; /* Adjust based on your needs */
+  height: auto;
+}
+
+.poke-card h3 {
+  margin: 5px 0;
+}
+
+.not-clickable {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.7;
+}

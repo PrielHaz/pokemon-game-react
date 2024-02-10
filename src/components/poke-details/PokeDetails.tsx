@@ -1,0 +1,55 @@
+import { FunctionComponent } from "react";
+import { PokemonData } from "../../types/pokemonData";
+
+import "./PokeDetails.css";
+
+interface PokeDetailsProps {
+  // get the pokemon data
+  pokemonData: PokemonData;
+}
+
+const PokeDetails: FunctionComponent<PokeDetailsProps> = ({
+  pokemonData,
+}: PokeDetailsProps) => {
+  return (
+    <div className="poke-details">
+      <h2>{pokemonData.name}</h2> <br />
+      <div className="flex-row-space-around">
+        <h3>Type:</h3>
+        <p>{pokemonData.type}</p> &nbsp;&nbsp;
+        <h3>Height:</h3>
+        <p>{pokemonData.height}</p>&nbsp;&nbsp;
+        <h3>Weight:</h3>
+        <p>{pokemonData.weight}</p>
+      </div>
+      <h3>Stats:</h3>
+      <ul>
+        {pokemonData.stats.map((stat) => (
+          <li key={stat.name}>
+            {stat.name}: {stat.value}
+          </li>
+        ))}
+      </ul>
+      <div className="pokemon-battle-stats-container">
+        {/* show Wins:
+        Losses:
+        and if both are 0 show in red: No Win Rate
+        else show the win rate */}
+        <h3>Win Rate:</h3>
+        <p>
+          {pokemonData.battlesWon === 0 && pokemonData.battlesLost === 0 ? (
+            <span className="no-win-rate">No Win Rate</span>
+          ) : (
+            `${(
+              (pokemonData.battlesWon /
+                (pokemonData.battlesWon + pokemonData.battlesLost)) *
+              100
+            ).toFixed(2)}%`
+          )}
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default PokeDetails;

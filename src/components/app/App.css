@@ -1,0 +1,17 @@
+/* App.css */
+
+/* the default react css for root */
+#root {
+  /* max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem; */
+}
+
+.all-app-container {
+  box-sizing: border-box; /* Include padding and border in the element's dimensions */
+  border: 2px solid white;
+}

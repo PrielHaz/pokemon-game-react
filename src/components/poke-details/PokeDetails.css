@@ -1,0 +1,77 @@
+.poke-details {
+  height: 100%;
+  font-family: "Arial", sans-serif;
+  background-color: #f3f4f6; /* Light gray background */
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhanced shadow for depth */
+  margin: 20px 0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.poke-details:hover {
+  transform: translateY(-5px); /* Slight lift effect on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover for emphasis */
+}
+
+.poke-details h2,
+.poke-details h3 {
+  display: inline-block;
+  color: #333; /* Dark gray for text */
+  margin-right: 10px; /* Ensures spacing between headings and text */
+}
+
+.poke-details p {
+  display: inline-block;
+}
+
+.poke-details p,
+.poke-details ul {
+  color: #555; /* Slightly lighter text */
+}
+.poke-details ul {
+  padding-left: 20px; /* Indent list items for better readability */
+}
+
+/* .flex-row-space-around {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+} */
+
+.pokemon-battle-stats-container {
+  border: 2px solid red;
+  padding: 8px; /* Slightly reduced for a tighter look */
+  margin-top: 18px; /* Slightly reduced to keep elements closer */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.no-win-rate {
+  color: red;
+  font-weight: bold;
+  font-size: 1.2em; /* Adjusted for better visibility */
+}
+
+.poke-details ul {
+  list-style-type: none; /* Remove default list styling */
+  padding-left: 0;
+  margin: 0;
+}
+
+.poke-details ul li {
+  margin-bottom: 2px; /* Slightly reduced for a compact look */
+}
+
+.poke-details h3 {
+  margin-top: 2px; /* Minimal space to keep content tight */
+}
+
+/* Additional styles for interactivity and visual polish */
+.poke-details ul li:hover {
+  color: #333; /* Darken text on hover for emphasis */
+}
+
+.pokemon-battle-stats-container:hover {
+  border-color: #d9534f; /* Change border color on hover for interactivity */
+}

@@ -1,0 +1,21 @@
+.moves-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Creates two columns of equal width */
+  grid-template-rows: auto auto; /* Creates two rows that adapt to their content's height */
+  gap: 10px; /* Optional: defines space between grid items */
+}
+
+.poke-card-and-moves-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.poke-card-and-moves-container .poke-card:hover {
+  /* remove all hover affects */
+  transform: none;
+  font-weight: normal;
+  font-size: 1em;
+  cursor: default;
+}
