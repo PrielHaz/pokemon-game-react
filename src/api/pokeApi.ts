@@ -3,6 +3,62 @@ import { MoveData } from "../types/moveData";
 import { Stat } from "../types/stat";
 import { TypeRelations } from "../types/typeRelations";
 
+interface PokemonTypeResponse {
+  name: string;
+  url: string;
+}
+
+interface PokemonTypesResponse {
+  results: PokemonTypeResponse[];
+}
+
+interface DamageRelationsResponse {
+  double_damage_from: Array<{ name: string }>;
+  double_damage_to: Array<{ name: string }>;
+  half_damage_from: Array<{ name: string }>;
+  half_damage_to: Array<{ name: string }>;
+  no_damage_from: Array<{ name: string }>;
+  no_damage_to: Array<{ name: string }>;
+}
+
+interface DetailedTypeResponse {
+  name: string;
+  damage_relations: DamageRelationsResponse;
+}
+
+interface BasicPokemon {
+  name: string;
+  id: number;
+  height: number;
+  weight: number;
+  moves: Array<{
+    move: {
+      name: string;
+      url: string;
+    };
+  }>;
+  types: Array<{
+    type: {
+      name: string;
+    };
+  }>;
+  stats: Array<{
+    stat: {
+      name: string;
+    };
+    base_stat: number;
+  }>;
+  sprites: {
+    back_default: string;
+    front_default: string;
+  };
+}
+
+interface MoveDetail {
+  name: string;
+  power: number | null;
+}
+
 export const fetchPokemonsAux = async (
   totalPokemons: number
 ): Promise<PokemonData[]> => {
@@ -14,19 +70,20 @@ export const fetchPokemonsAux = async (
     return JSON.parse(pokemonsData);
   }
   try {
-    const fetchPromises: Promise<any>[] = [];
+    const fetchPromises: Promise<BasicPokemon>[] = [];
+
     for (let i = 1; i <= totalPokemons; i++) {
       fetchPromises.push(
-        fetch(`https://pokeapi.co/api/v2/pokemon/${i}/`).then((res) =>
-          res.json()
-        )
+        fetch(`https://pokeapi.co/api/v2/pokemon/${i}/`)
+          .then((res) => res.json())
+          .then((data: BasicPokemon) => data)
       );
     }
 
     const results = await Promise.all(fetchPromises);
 
-    const movesUrls: string[] = results.map((data: any) =>
-      data.moves.map((move: any) => move.move.url)
+    const movesUrls: string[][] = results.map((pokemon: BasicPokemon) =>
+      pokemon.moves.map((move) => move.move.url)
     );
 
     // remove duplicates
@@ -35,35 +92,35 @@ export const fetchPokemonsAux = async (
     // create a dictionary from the movesUrlsSet,
     // where the key is the key is the name and the value is the power
     const movesDict: { [key: string]: number } = {};
-    const movesPromises: Promise<any>[] = Array.from(movesUrlsSet).map((url) =>
-      fetch(url).then((res) => res.json())
-    );
+    const movesPromises: Promise<MoveDetail>[] = Array.from(movesUrlsSet).map((url) =>
+    fetch(url).then((res) => res.json())
+  );
     const moves = await Promise.all(movesPromises);
-    moves.forEach((move: any) => {
+    moves.forEach((move: MoveDetail) => {
       movesDict[move.name] = move.power ? move.power : 0;
     });
 
-    const pokemonsData: PokemonData[] = results.map((data: any) => {
-      const movesData: MoveData[] = data.moves.map((move: any) => ({
+    const pokemonsData: PokemonData[] = results.map((pokemon: BasicPokemon) => {
+      const movesData: MoveData[] = pokemon.moves.map((move) => ({
         name: move.move.name,
         mp: movesDict[move.move.name],
       }));
 
-      const types: string[] = data.types.map((type: any) => type.type.name);
-      const stats: Stat[] = data.stats.map((stat: any) => ({
+      const types: string[] = pokemon.types.map((type) => type.type.name);
+      const stats: Stat[] = pokemon.stats.map((stat) => ({
         name: stat.stat.name,
         value: stat.base_stat,
       }));
       return new PokemonData(
-        data.name,
-        data.id,
-        data.height,
-        data.weight,
+        pokemon.name,
+        pokemon.id,
+        pokemon.height,
+        pokemon.weight,
         movesData,
         types[0], // Assuming we only take the first type for simplicity
         stats,
-        data.sprites.back_default,
-        data.sprites.front_default
+        pokemon.sprites.back_default,
+        pokemon.sprites.front_default
       );
     });
 
@@ -86,12 +143,12 @@ export const fetchDamageRelationsAux = async (): Promise<TypeRelations[]> => {
   try {
     // Fetch the list of all Pokémon types
     const response = await fetch("https://pokeapi.co/api/v2/type/");
-    const { results: types } = await response.json();
+    const { results: types }: PokemonTypesResponse = await response.json();
 
     // Fetch damage relations for each type concurrently
-    const damageRelationsPromises = types.map((type: any) =>
-      fetch(type.url).then((response) => response.json())
-    );
+    const damageRelationsPromises = types.map((type: PokemonTypeResponse) =>
+    fetch(type.url).then((response): Promise<DetailedTypeResponse> => response.json())
+  );
     const damageRelationsResults = await Promise.all(damageRelationsPromises);
 
     // Transform the fetched data into the TypeRelations interface format
