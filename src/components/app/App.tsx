@@ -1,11 +1,8 @@
 // App.tsx
 
 import React, {
-  createContext,
-  useContext,
   useEffect,
   useState,
-  ReactNode,
   FunctionComponent,
 } from "react";
 

@@ -40,12 +40,24 @@
 } */
 
 .pokemon-battle-stats-container {
+  display: flex;
+  flex-direction: column;
   border: 2px solid red;
-  padding: 8px; /* Slightly reduced for a tighter look */
-  margin-top: 18px; /* Slightly reduced to keep elements closer */
+  padding: 1px; /* Slightly reduced for a tighter look */
+  margin-top: 1px; /* Slightly reduced to keep elements closer */
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
+
+.stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Vertically align the h3 and p elements */
+  flex-wrap: wrap; /* Allow the items to wrap onto the next line if there isn't enough space */
+  width: 100%; /* Ensure the stat div takes up the full width of the container */
+  margin-bottom: 0px; /* Add space between each stat div */
+}
+
 
 .no-win-rate {
   color: red;

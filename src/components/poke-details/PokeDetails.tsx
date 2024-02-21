@@ -16,9 +16,9 @@ const PokeDetails: FunctionComponent<PokeDetailsProps> = ({
       <h2>{pokemonData.name}</h2> <br />
       <div className="flex-row-space-around">
         <h3>Type:</h3>
-        <p>{pokemonData.type}</p> &nbsp;&nbsp;
+        <p>{pokemonData.type}</p>;
         <h3>Height:</h3>
-        <p>{pokemonData.height}</p>&nbsp;&nbsp;
+        <p>{pokemonData.height}</p>;
         <h3>Weight:</h3>
         <p>{pokemonData.weight}</p>
       </div>
@@ -31,10 +31,15 @@ const PokeDetails: FunctionComponent<PokeDetailsProps> = ({
         ))}
       </ul>
       <div className="pokemon-battle-stats-container">
-        {/* show Wins:
-        Losses:
-        and if both are 0 show in red: No Win Rate
-        else show the win rate */}
+        <div className="stat">
+        <h3>Wins: </h3>
+        <p>{pokemonData.battlesWon}</p>
+        </div>
+        <div className="stat">
+        <h3>Losses:</h3>
+        <p>{pokemonData.battlesLost}</p>
+        </div>
+        <div className="stat">
         <h3>Win Rate:</h3>
         <p>
           {pokemonData.battlesWon === 0 && pokemonData.battlesLost === 0 ? (
@@ -47,6 +52,7 @@ const PokeDetails: FunctionComponent<PokeDetailsProps> = ({
             ).toFixed(2)}%`
           )}
         </p>
+        </div>
       </div>
     </div>
   );
