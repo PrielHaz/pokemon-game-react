@@ -18,11 +18,7 @@ import FightingPoke from "../fighting-poke/FightingPoke";
 import Button from "../button/Button";
 
 // constants
-import {
-  MOVES_PER_POKEMON,
-  START_ROUND_NUMBER,
-  LAST_ROUND_NUMBER,
-} from "../../utils/constants";
+import { MOVES_PER_POKEMON, LAST_ROUND_NUMBER } from "../../utils/constants";
 
 // css
 import "./FightPage.css";
@@ -130,12 +126,14 @@ const FightPage: FunctionComponent<FightPageProps> = ({
     const randomMoveIndex = getRandomInt(0, opponentMoves.length - 1);
     const opponentMove = opponentMoves[randomMoveIndex];
     // set the isAlreadyFought of the opponent to true using setOpponentPokemons
-    const updatedOpponentPokemons = opponentPokemons.map((pokemon) => {
-      if (pokemon.uid === opponentFighter?.uid) {
-        return { ...pokemon, isAlreadyFought: true };
+    const updatedOpponentPokemons = opponentPokemons.map(
+      (pokemon: PokemonData) => {
+        if (pokemon.uid === opponentFighter?.uid) {
+          return { ...pokemon, isAlreadyFought: true };
+        }
+        return pokemon;
       }
-      return pokemon;
-    });
+    );
     setOpponentPokemons(updatedOpponentPokemons);
 
     // check who won the round
@@ -164,7 +162,7 @@ const FightPage: FunctionComponent<FightPageProps> = ({
       isUserWonRound = true;
     }
 
-    const updatedUserPokemons = userPokemons.map((pokemon) => {
+    const updatedUserPokemons = userPokemons.map((pokemon: PokemonData) => {
       if (pokemon.uid === userPokemonFighterUid) {
         // if the battle will over as said in piazza - it will update the pokemon stats
         return { ...pokemon, isWonLastRound: isUserWonRound };
@@ -202,7 +200,7 @@ const FightPage: FunctionComponent<FightPageProps> = ({
     setRoundOutcomeMessages({
       userMoveMessage: `${userFighter?.name} used ${move.name} with total power: ${userTotalPower}`,
       opponentMoveMessage: `${opponentFighter?.name} used ${opponentMove.name} with total power: ${opponentTotalPower}.`,
-      winnerMessage: `You ${
+      winnerMessage: `Your Pokemon ${
         isUserWonRound ? "won" : "lost"
       } the round! Click continue to
       ${

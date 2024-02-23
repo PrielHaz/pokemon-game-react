@@ -1,10 +1,6 @@
 // App.tsx
 
-import React, {
-  useEffect,
-  useState,
-  FunctionComponent,
-} from "react";
+import { useEffect, useState, FunctionComponent } from "react";
 
 import "./App.css";
 // Import your components
@@ -48,15 +44,17 @@ const App: FunctionComponent<AppProps> = () => {
   const fetchAndSetPokemons = async () => {
     try {
       // Fetch Pokemons and set pokemonsData state
-      const pokemonsDataFetched = await fetchPokemonsAux(TOTAL_POKEMONS);
-      console.log("fetched pokemons:", pokemonsDataFetched);
+      const pokemonsDataFetched: PokemonData[] = await fetchPokemonsAux(
+        TOTAL_POKEMONS
+      );
       setPokemonsData(pokemonsDataFetched);
 
-      const userPokemonsInLocalStorage = localStorage.getItem("userPokemons");
+      const userPokemonsInLocalStorage: string | null =
+        localStorage.getItem("userPokemons");
       if (userPokemonsInLocalStorage) {
         setUserPokemons(JSON.parse(userPokemonsInLocalStorage));
       } else {
-        const randomUserPokemons = getRandPokemons(
+        const randomUserPokemons: PokemonData[] = getRandPokemons(
           pokemonsDataFetched,
           TOTAL_POKEMONS_PER_PLAYER
         );
@@ -70,7 +68,8 @@ const App: FunctionComponent<AppProps> = () => {
   const fetchDamageRelations = async () => {
     try {
       // Fetch damageRelations and set damageRelations state
-      const damageRelationsFetched = await fetchDamageRelationsAux();
+      const damageRelationsFetched: TypeRelations[] =
+        await fetchDamageRelationsAux();
       console.log("fetched damageRelations:", damageRelationsFetched);
       setDamageRelations(damageRelationsFetched);
     } catch (error) {
@@ -82,7 +81,8 @@ const App: FunctionComponent<AppProps> = () => {
     console.log("App component start mounting");
     await fetchAndSetPokemons();
     await fetchDamageRelations();
-    const userStatsInLocalStorage = localStorage.getItem("userStats");
+    const userStatsInLocalStorage: string | null =
+      localStorage.getItem("userStats");
     if (userStatsInLocalStorage) {
       console.log("userStats found in local storage");
       setUserStats(JSON.parse(userStatsInLocalStorage));
@@ -90,13 +90,11 @@ const App: FunctionComponent<AppProps> = () => {
       console.log("userStats not found in local storage, setting to default");
       setUserStats(defaultUserStats);
     }
-
-    // TODO need that if damageRelations is not in local storage, fetch it from api.ts
+    setIsMounted(true);
   };
   useEffect(() => {
     handleMount();
     console.log("setting isMounted to true");
-    setIsMounted(true);
   }, []); // Empty dependency array means this runs once on component mount
 
   useEffect(() => {

@@ -12,6 +12,9 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url("/bg.jpg");
+  background-size: cover; /* Cover the entire page */
+  background-position: center; /* Center the background image */
 }
 
 a {
@@ -35,11 +38,12 @@ body {
   /* height: 100vh;
   width: 100vw; */
   min-width: 320px;
-  min-height: 100vh; */
+  min-height: 100vh;
 }
 
 /* to hide the overflow so it will be 1 page only */
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   /* overflow: hidden; This prevents scrolling caused by overflow */

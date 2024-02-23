@@ -44,32 +44,34 @@ const ChooseRoundPokePage: FunctionComponent<ChooseRoundPokePageProps> = ({
   const updateUserPokemonsBattleResults: () => void = () => {
     // this function will assert that isWonLastRound is not null,
     // and then update the usersPokemons isAlreadyFought to false and battlesWon\battlesLost
-    const updatedUserPokemons: PokemonData[] = userPokemons.map((pokemon) => {
-      if (!pokemon.isAlreadyFought) {
-        throw new Error(
-          "updateUserPokemonsBattleResults: pokemon.isAlreadyFought is: ${pokemon.isAlreadyFought}"
-        );
+    const updatedUserPokemons: PokemonData[] = userPokemons.map(
+      (pokemon: PokemonData) => {
+        if (!pokemon.isAlreadyFought) {
+          throw new Error(
+            "updateUserPokemonsBattleResults: pokemon.isAlreadyFought is: ${pokemon.isAlreadyFought}"
+          );
+        }
+        // check if the pokemon property: isWonLastRound is null - raise error!! otherwise
+        // its bool so if true battlesWon++ else battlesLost++
+        if (pokemon.isWonLastRound === null) {
+          throw new Error(
+            "updateUserPokemonsBattleResults: pokemon.isWonLastRound is null"
+          );
+        } else if (pokemon.isWonLastRound) {
+          return {
+            ...pokemon,
+            battlesWon: pokemon.battlesWon + 1,
+            isAlreadyFought: null,
+          };
+        } else {
+          return {
+            ...pokemon,
+            battlesLost: pokemon.battlesLost + 1,
+            isAlreadyFought: null,
+          };
+        }
       }
-      // check if the pokemon property: isWonLastRound is null - raise error!! otherwise
-      // its bool so if true battlesWon++ else battlesLost++
-      if (pokemon.isWonLastRound === null) {
-        throw new Error(
-          "updateUserPokemonsBattleResults: pokemon.isWonLastRound is null"
-        );
-      } else if (pokemon.isWonLastRound) {
-        return {
-          ...pokemon,
-          battlesWon: pokemon.battlesWon + 1,
-          isAlreadyFought: null,
-        };
-      } else {
-        return {
-          ...pokemon,
-          battlesLost: pokemon.battlesLost + 1,
-          isAlreadyFought: null,
-        };
-      }
-    });
+    );
     setUserPokemons(updatedUserPokemons);
   };
 
@@ -85,7 +87,7 @@ const ChooseRoundPokePage: FunctionComponent<ChooseRoundPokePageProps> = ({
       <h2>Opponent's pokemons</h2>
       {/* show opponentPokemons, unclickable, shadow those that fought */}
       <div className="opponent-pokemons-container">
-        {opponentPokemons.map((pokemon) => (
+        {opponentPokemons.map((pokemon: PokemonData) => (
           <PokeCard
             key={pokemon.uid}
             isShadowed={pokemon.isAlreadyFought}
@@ -127,7 +129,7 @@ const ChooseRoundPokePage: FunctionComponent<ChooseRoundPokePageProps> = ({
       </h2>
       {/* show userPokemons, clickable(use setUserPokemonFighterUid on the selected one), shadow those that fought */}
       <div className="user-pokemons-container">
-        {userPokemons.map((pokemon) => (
+        {userPokemons.map((pokemon: PokemonData) => (
           <PokeCard
             key={pokemon.uid}
             isShadowed={pokemon.isAlreadyFought}

@@ -92,9 +92,9 @@ export const fetchPokemonsAux = async (
     // create a dictionary from the movesUrlsSet,
     // where the key is the key is the name and the value is the power
     const movesDict: { [key: string]: number } = {};
-    const movesPromises: Promise<MoveDetail>[] = Array.from(movesUrlsSet).map((url) =>
-    fetch(url).then((res) => res.json())
-  );
+    const movesPromises: Promise<MoveDetail>[] = Array.from(movesUrlsSet).map(
+      (url: string) => fetch(url).then((res) => res.json())
+    );
     const moves = await Promise.all(movesPromises);
     moves.forEach((move: MoveDetail) => {
       movesDict[move.name] = move.power ? move.power : 0;
@@ -147,8 +147,10 @@ export const fetchDamageRelationsAux = async (): Promise<TypeRelations[]> => {
 
     // Fetch damage relations for each type concurrently
     const damageRelationsPromises = types.map((type: PokemonTypeResponse) =>
-    fetch(type.url).then((response): Promise<DetailedTypeResponse> => response.json())
-  );
+      fetch(type.url).then(
+        (response): Promise<DetailedTypeResponse> => response.json()
+      )
+    );
     const damageRelationsResults = await Promise.all(damageRelationsPromises);
 
     // Transform the fetched data into the TypeRelations interface format

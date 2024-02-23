@@ -10,10 +10,10 @@ const PresentUserStats: FunctionComponent<PresentUserStatsProps> = ({
   battlesWon,
   battlesLost,
 }) => {
-  const totalBattles = battlesWon + battlesLost;
-  const winPercentage =
+  const totalBattles: number = battlesWon + battlesLost;
+  const winPercentage: number =
     totalBattles > 0 ? (battlesWon / totalBattles) * 100 : 0;
-  const fillPercentage = `${winPercentage}%`;
+  const fillPercentage: string = `${winPercentage}%`;
 
   return (
     <div className="user-stats-container">

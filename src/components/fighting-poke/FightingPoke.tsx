@@ -18,7 +18,7 @@ interface FightingPokeProps {
   moves: MoveData[];
   buttonColorBeforeHover: string;
   buttonColorAfterHover: string;
-  onClick: () => void;
+  onMoveClick: (move: MoveData) => void;
   movesClickableAnimations: boolean;
 }
 
@@ -51,7 +51,7 @@ const FightingPoke: FunctionComponent<FightingPokeProps> = ({
   // var for the moves container
   const movesContainer: JSX.Element = (
     <div className={`moves-container`}>
-      {moves.map((move) => (
+      {moves.map((move: MoveData) => (
         <Button
           key={`${keyPrefix}-${move.name}`}
           colorBeforeHover={buttonColorBeforeHover}

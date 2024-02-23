@@ -1,17 +1,7 @@
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  ReactNode,
-  FunctionComponent,
-} from "react";
+import { useState, FunctionComponent } from "react";
 
 // import constants
-import {
-  TOTAL_POKEMONS,
-  TOTAL_POKEMONS_PER_PLAYER,
-} from "../../utils/constants";
+import { TOTAL_POKEMONS_PER_PLAYER } from "../../utils/constants";
 
 // import utilitiy functions
 import { getRandPokemons } from "../../utils/utils_functions";
@@ -101,7 +91,7 @@ const MyPokemonPage: FunctionComponent<MyPokemonPageProps> = ({
         <div className="choose-poke-to-show-details-container">
           <h2>Choose a Pokemon to show details</h2>
           <div className="pokemons-container">
-            {userPokemons.map((pokemon) => (
+            {userPokemons.map((pokemon: PokemonData) => (
               <PokeCard
                 key={pokemon.uid}
                 isShadowed={choosedPokemon?.uid === pokemon.uid} // shadow the choosed poke only

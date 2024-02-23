@@ -6,14 +6,13 @@ import { UserStats } from "../../types/userStats";
 import { TypeRelations } from "../../types/typeRelations";
 
 // import components
-import Button from "../button/Button";
 import ChooseRoundPokePage from "../choose-round-poke-page/ChooseRoundPokePage";
 import FightPage from "../fight-page/FightPage";
 
 // utils
 import { getRandPokemons } from "../../utils/utils_functions";
 
-import { START_ROUND_NUMBER, LAST_ROUND_NUMBER } from "../../utils/constants";
+import { START_ROUND_NUMBER } from "../../utils/constants";
 
 import "./BattlePage.css";
 
@@ -48,16 +47,13 @@ const BattlePage: FunctionComponent<BattlePageProps> = ({
   useState<PokemonData | null>(null);
 
   useEffect(() => {
-    const updatedUserPokemons = userPokemons.map((pokemon) => {
+    const updatedUserPokemons = userPokemons.map((pokemon: PokemonData) => {
       return { ...pokemon, isAlreadyFought: false };
     });
     setUserPokemons(updatedUserPokemons);
   }, []);
 
   useEffect(() => {
-    console.log(
-      "or battlePage mounted or pokemonsData changed - generate opponentPokemons for battle"
-    );
     // will cause generate opponentPokemons for battle
     const opponentPokemons = getRandPokemons(pokemonsData);
     // update only when pokemonsData is not empty. BattlePage dont have the setter
@@ -71,7 +67,7 @@ const BattlePage: FunctionComponent<BattlePageProps> = ({
   useEffect(() => {
     // will track the fighter pokemon of the user and save that it has already fought
     if (userPokemonFighterUid === null) return;
-    const updatedUserPokemons = userPokemons.map((pokemon) => {
+    const updatedUserPokemons = userPokemons.map((pokemon: PokemonData) => {
       if (pokemon.uid === userPokemonFighterUid) {
         return { ...pokemon, isAlreadyFought: true };
       }
@@ -113,16 +109,6 @@ const BattlePage: FunctionComponent<BattlePageProps> = ({
           setRoundsUserWon={setRoundsUserWon} // increase by 1 if user won
         />
       )}
-
-      {/* for debug */}
-      {/* <button
-        onClick={() => {
-          localStorage.clear();
-          setIsOnMyPokemonPage(true);
-        }}
-      >
-        Reset Local Storage
-      </button> */}
     </div>
   );
 };
